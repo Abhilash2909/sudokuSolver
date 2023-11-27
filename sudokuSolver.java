@@ -1,7 +1,7 @@
 public class sudokuSolver {
 
-    private static final int boxSize = 3;
-    private static final int gridSize = boxSize * boxSize;
+    private static final int BOX_SIZE = 3;
+    private static final int GRID_SIZE = BOX_SIZE * BOX_SIZE;
 
 
     public static void main(String[] args) {
@@ -17,22 +17,20 @@ public class sudokuSolver {
                 {0, 2, 0, 0, 0, 0, 1, 0, 0}, };
 
         if(solve(board)) {
-            System.out.println();
-            System.out.println("Yay!😊");
-            System.out.println();
+            System.out.println("Yay!😊 Sudoku solved successfully!");
             printResult(board);
         } else {
-            System.out.println("Oops☹️");
+            System.out.println("Oops☹️ Unable to solve the Sudoku puzzle.");
         }
     }
 
     private static void printResult(int[][] board) {
-        for (int row = 0; row < gridSize; row++) {
-            if(row % boxSize == 0 && row != 0) {
+        for (int row = 0; row < GRID_SIZE; row++) {
+            if(row % BOX_SIZE == 0 && row != 0) {
                 System.out.println("-------------------");
             }
-            for (int col = 0; col < gridSize; col++) {
-                if(col % boxSize == 0 && col != 0) {
+            for (int col = 0; col < GRID_SIZE; col++) {
+                if(col % BOX_SIZE == 0 && col != 0) {
                     System.out.print("|");
                 }
                 final int cellValue = board[row][col];
@@ -49,7 +47,7 @@ public class sudokuSolver {
 
     //    condition 1
     private static boolean allowedInRow(int[][] board, int row, int number) {
-        for (int i = 0; i < gridSize; i++) {
+        for (int i = 0; i < GRID_SIZE; i++) {
             if (board[row][i] == number) {
                 return false;
             }
@@ -59,7 +57,7 @@ public class sudokuSolver {
 
 //    condition 2
     private static boolean allowedInColumn(int[][] board, int col, int number) {
-        for (int i = 0; i < gridSize; i++) {
+        for (int i = 0; i < GRID_SIZE; i++) {
             if (board[i][col] == number) {
                 return false;
             }
@@ -70,11 +68,11 @@ public class sudokuSolver {
 //    condition 3
     private static boolean allowedInBox(int[][] board, int row, int col, int number) {
 
-        final int boxRow = row - (row % boxSize);
-        final int boxCol = col - (col % boxSize);
+        final int boxRow = row - (row % BOX_SIZE);
+        final int boxCol = col - (col % BOX_SIZE);
 
-        for (int i = 0; i < boxSize; i++) {
-            for (int j = 0; j < boxSize; j++) {
+        for (int i = 0; i < BOX_SIZE; i++) {
+            for (int j = 0; j < BOX_SIZE; j++) {
                 if (board[boxRow + i][boxCol + j] == number) {
                     return false;
                 }
@@ -94,10 +92,10 @@ public class sudokuSolver {
 
     private static boolean solve(int[][] board)
     {
-        for (int row = 0; row < gridSize; row++) {
-            for (int col = 0; col < gridSize; col++) {
+        for (int row = 0; row < GRID_SIZE; row++) {
+            for (int col = 0; col < GRID_SIZE; col++) {
                 if(board[row][col] == 0) {
-                    for (int num = 1; num <= gridSize; num++) {
+                    for (int num = 1; num <= GRID_SIZE; num++) {
                         if(isAllowed(board, row, col, num)) {
 
                             board[row][col] = num;
